@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{# Add import for bootstrap wtf quickform support #}
+{% import "bootstrap/wtf.html" as wtf %}
+<head>
+  <meta charset="UTF-8">
+  <title>Enter Personal Info</title>
+  <body>
+
+
+  <form class="form form-horizontal" method="post" name="personal_info">
+    <input type="hidden" name="personal_info" value="form">
+    {{ form.hidden_tag() }}
+    <hr>
+        {{ form.csrf_token }}
+        {{ form.first_name.label }}
+        {{ form.first_name(size=30) }}
+        {{ form.first_name.errors[0] }}
+      <br>
+      <br>
+        {{ form.last_name.label }}
+        {{ form.last_name(size=30) }}
+        {{ form.last_name.errors[0] }}
+      <br>
+      <br>
+        {{ form.email.label }}
+        {{ form.email(size=30) }}
+        {{ form.email.errors[0] }}
+        {{ form.email.errors[1] }}
+      <br>
+      <br>
+        {{ form.age.label }}
+        {{ form.age(size=30) }}
+        {{ form.age.errors[0] }}
+      <br>
+      <br>
+        {{ form.phone_number.label }}
+        {{ form.phone_number(size=30) }}
+        {{ form.phone_number.errors[0] }}
+      <br>
+      <br>
+        {{ form.address.label }}
+        {{ form.address(size=30) }}
+        {{ form.address.errors[0] }}
+      <br>
+      <br>
+        {{ form.post_code.label }}
+        {{ form.post_code(size=30) }}
+        {{ form.post_code.errors[0] }}
+      <br>
+      <br>
+      {{ form.submit(size=5) }}
+      <input formmethod="post" value="Delete Record" type="submit" name="delete_button">
+  </form>
+  <br>
+</body>
+<hr>
+</head>
+
+</html>
