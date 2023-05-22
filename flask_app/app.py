@@ -1,5 +1,5 @@
 from flask_app import create_app
 
 if __name__ == "__main__":
-    app = create_app('local')
+    app = create_app("local")
     app.run(debug=True)

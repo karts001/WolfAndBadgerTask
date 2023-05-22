@@ -1,10 +1,11 @@
 import unittest
+
 from flask_app import create_app
 from flask_app.extensions import db
 
 
 class TestTheGithubOAuthPage(unittest.TestCase):
-    app = create_app('test')
+    app = create_app("test")
 
     def setUp(self):
         self.ctx = self.app.app_context()
@@ -16,8 +17,10 @@ class TestTheGithubOAuthPage(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_root_page_redirects_to_the_github_authentication_page_if_the_user_is_not_signed_in(self):
-        response = self.client.get('/')
+    def test_root_page_redirects_to_the_github_authentication_page_if_the_user_is_not_signed_in(
+        self,
+    ):
+        response = self.client.get("/")
         response_code = response.status_code
 
         html = response.data.decode()
@@ -29,5 +32,5 @@ class TestTheGithubOAuthPage(unittest.TestCase):
         self.assertIn(another_expected_text, html)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
