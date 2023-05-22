@@ -1,11 +1,12 @@
+import os
+
 from flask import url_for
 from flask_dance.contrib.github import github, make_github_blueprint
 from werkzeug.utils import redirect
 
-"""move into a config file"""
 auth = make_github_blueprint(
-    client_id="77ae2a7d12b314d52eeb",
-    client_secret="28134967312b14a2267c4e3a81268dbce9137a13",
+    client_id=os.environ.get("FLASK_CLIENT_ID"),
+    client_secret=os.environ.get("FLASK_CLIENT_SECRET"),
 )
 
 

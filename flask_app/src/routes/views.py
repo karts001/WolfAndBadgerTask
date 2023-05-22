@@ -11,9 +11,10 @@ views = Blueprint("views", __name__)
 
 @views.route("/update_info", methods=["GET", "POST"])
 def update_info():
+    """Route which contains the html form"""
     personal_info_form = PersonalInfoForm()
     github_name = get_user_info()
-    # query the database using the github username
+    # query the database for the current user using the github username
     user = PersonalInfo.query.filter_by(github_user_name=github_name).first()
 
     if personal_info_form.validate_on_submit() and "submit" in request.form:
@@ -46,6 +47,7 @@ def update_info():
         return redirect(url_for("views.info_updated"))
 
     elif request.method == "GET":
+        # populate the form with data from the database if it exists
         if user is not None:
             personal_info_form.first_name.data = user.first_name
             personal_info_form.last_name.data = user.last_name
@@ -66,6 +68,7 @@ def update_info():
         return redirect(url_for("views.delete_record", github_user=github_name))
 
     else:
+        # Render an empty form
         return render_template(
             "index.html",
             form=personal_info_form,
@@ -76,11 +79,13 @@ def update_info():
 
 @views.route("/info_updated", methods=["GET"])
 def info_updated():
+    """Route for when the user's info has been successfully updated"""
     return render_template("info_updated.html")
 
 
 @views.route("/delete_record/<github_user>", methods=["GET", "POST"])
 def delete_record(github_user):
+    """Route for when a user's record is deleted from the database"""
     PersonalInfo.query.filter_by(github_user_name=github_user).delete()
     db.session.commit()
 
@@ -88,6 +93,7 @@ def delete_record(github_user):
 
 
 def get_user_info():
+    """Gets users info from GitHub OAuth, also allows GitHub OAuth to be mocked in the unit tests"""
     account_info = github.get("/user")
     account_info_json = account_info.json()
     github_name = account_info_json["login"]
