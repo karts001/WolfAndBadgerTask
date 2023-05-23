@@ -50,7 +50,6 @@ class TestTheUpdateInfoRoute(unittest.TestCase):
             personal_info_form = PersonalInfoForm()
             html = response.data.decode()
             first_name_current_value = personal_info_form.first_name.data
-            print(f"This is the current first name: {first_name_current_value}")
 
     def test_the_form_redirects_to_success_route_when_validated_data_is_sent(self):
         mock_github_user = "test"

@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 from dotenv import load_dotenv
 from flask import Flask
@@ -10,12 +11,17 @@ from flask_app.extensions import db
 def create_app(env):
     """create and configure the app"""
     # check which env we are working in
+    base_file_path = pathlib.Path(__file__).parent.resolve()
+    print(base_file_path)
     if env == "local":
-        path = r"C:\Users\shivi\Repos\WolfAndBadgerTask\flask_app\development.env"
+        path = os.path.join(base_file_path, "development.env")
     elif env == "test":
-        path = r"C:\Users\shivi\Repos\WolfAndBadgerTask\flask_app\test.env"
+        path = os.path.join(base_file_path, "test.env")
+
+    secret_path = os.path.join(base_file_path, "secrets.env")
 
     load_dotenv(path)
+    load_dotenv(secret_path)
     app = Flask(__name__)
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     Bootstrap(app)
