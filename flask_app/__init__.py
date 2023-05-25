@@ -12,7 +12,6 @@ def create_app(env):
     """create and configure the app"""
     # check which env we are working in
     base_file_path = pathlib.Path(__file__).parent.resolve()
-    print(base_file_path)
     if env == "local":
         path = os.path.join(base_file_path, "development.env")
     elif env == "test":
